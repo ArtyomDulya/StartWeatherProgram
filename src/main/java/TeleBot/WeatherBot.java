@@ -32,8 +32,6 @@ public class WeatherBot extends TelegramLongPollingBot implements BaseBot {
     @Override
     public void onUpdateReceived(Update update) {
         try {
-            update.hasMessage();
-            update.getMessage().hasText();
             Message inMess = update.getMessage();
             String chatId = inMess.getChatId().toString();
             String response = "";
@@ -47,7 +45,6 @@ public class WeatherBot extends TelegramLongPollingBot implements BaseBot {
             outMess.setChatId(chatId);
             outMess.setText(response);
             execute(outMess);
-
         } catch (TelegramApiException e) {
             e.printStackTrace();
         } catch (Exception e) {
@@ -66,7 +63,6 @@ public class WeatherBot extends TelegramLongPollingBot implements BaseBot {
                 content.append(line + "\n");
             }
             bufferedReader.close();
-
             return content.toString();
         } catch (Exception e) {
             return "Error";
