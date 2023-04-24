@@ -86,13 +86,13 @@ public class WeatherBot extends TelegramLongPollingBot implements BaseBot {
             SimpleDateFormat sdf = new SimpleDateFormat("MMM dd,yyyy HH:mm a", Locale.ENGLISH);
             sdf.setTimeZone(TimeZone.getTimeZone("Etc/UTC"));
 
-            return "Название города: " + city + "\n" +
-                    "Температура: " + setTemp + "°C\n" +
-                    "Влажность: " + setHumidity + " %\n" +
-                    "Давление: " + setPressure + " hPa\n" +
-                    "Скорость ветра: " + setSpeed + " м/с\n" +
-                    "Время рассвета: " + sdf.format(data);
-
+            return String.format(
+                    "Название города: %s\n" +
+                    "Температура: %s °C\n" +
+                    "Влажность: %s  %%\n" +
+                    "Давление: %s  hPa\n" +
+                    "Скорость ветра: %s м/с\n" +
+                    "Время рассвета: %s ", city, setTemp, setHumidity, setPressure, setSpeed, sdf.format(data));
         } catch (Exception e) {
             return "Вы наверно допустили синтаксическую ошибку, попробуйте еще раз.";
         }
