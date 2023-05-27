@@ -70,6 +70,7 @@ public class WeatherBot extends TelegramLongPollingBot implements BaseBot {
     }
 
     public static String getWeather(String cityName) {
+
         try {
             String output = weatherUrl("https://api.openweathermap.org/data/2.5/weather?q=" + cityName +
                     "&appid=" + OPEN_WEATHER_TOKEN + "&units=metric&lang=ru");
