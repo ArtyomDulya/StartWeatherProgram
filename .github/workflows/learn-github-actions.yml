@@ -1,3 +1,16 @@
 name: learn-github-actions
 on: workflow_dispatch
 state: disabled_manually
+jobs:
+  check:
+    runs-on: ubuntu-20.04
+    environment: Production
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Find slot
+        run: docker compose up --exit-code-from jrtb
