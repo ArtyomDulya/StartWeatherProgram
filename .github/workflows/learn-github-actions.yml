@@ -1,6 +1,5 @@
 name: learn-github-actions
 on: workflow_dispatch
-state: disabled_manually
 jobs:
   check:
     runs-on: ubuntu-20.04
