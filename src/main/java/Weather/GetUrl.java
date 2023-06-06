@@ -1,8 +1,8 @@
 package Weather;
 
 
-
 import org.json.JSONObject;
+
 import java.text.SimpleDateFormat;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,7 +13,6 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Scanner;
 import java.util.TimeZone;
-
 
 
 public class GetUrl {
@@ -39,7 +38,7 @@ public class GetUrl {
             String cityName = sc.nextLine();
 
             String output = weatherUrl("https://api.openweathermap.org/data/2.5/weather?q=" + cityName +
-                    "&appid=" + "408af993dd3301318fa884374fa752fd" + "&units=metric&lang=ru");
+                                       "&appid=" + "408af993dd3301318fa884374fa752fd" + "&units=metric&lang=ru");
 
             JSONObject json = new JSONObject(output);
 

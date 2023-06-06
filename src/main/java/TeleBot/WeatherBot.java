@@ -10,6 +10,7 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -17,16 +18,33 @@ import java.net.URLConnection;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-public class WeatherBot extends TelegramLongPollingBot implements BaseBot {
+public class WeatherBot extends TelegramLongPollingBot {
+
+    public static String getTokenProperties(String property) throws IOException {
+        FileInputStream fis;
+        java.util.Properties properties = new java.util.Properties();
+
+        fis = new FileInputStream("src/main/resources/Configurations.properties");
+        properties.load(fis);
+        return properties.getProperty(property);
+    }
 
     @Override
     public String getBotUsername() {
-        return BOT_USERNAME;
+        try {
+            return getTokenProperties("tokenUserName");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public String getBotToken() {
-        return BOT_TOKEN;
+        try {
+            return getTokenProperties("botToken");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -37,7 +55,7 @@ public class WeatherBot extends TelegramLongPollingBot implements BaseBot {
             String response = "";
             if (inMess.getText().equals("/start")) {
                 response = "Приветствую вас, я могу рассказать вам о погоде, в выбранном вами городе," +
-                        "понимаю сообщения на русском и английском языках,ведите название города.";
+                           "понимаю сообщения на русском и английском языках,ведите название города.";
             } else {
                 response = getWeather(inMess.getText());
             }
@@ -73,7 +91,7 @@ public class WeatherBot extends TelegramLongPollingBot implements BaseBot {
 
         try {
             String output = weatherUrl("https://api.openweathermap.org/data/2.5/weather?q=" + cityName +
-                    "&appid=" + OPEN_WEATHER_TOKEN + "&units=metric&lang=ru");
+                                       "&appid=" + getTokenProperties("openWeatherToken") + "&units=metric&lang=ru");
 
             JSONObject json = new JSONObject(output);
 
